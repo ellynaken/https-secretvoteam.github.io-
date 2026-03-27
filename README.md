@@ -6,7 +6,7 @@
     <title>Secret Vote Team</title>
 </head>
 <body>
-    <h1>Selamat Datang di Secret Vote Team</h1>
+    <h1>Selamat Datang di SER37 V0 5E4171</h1>
     <p>Website ini sedang dalam pengembangan.</p>
 </body>
 </html>
