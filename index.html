@@ -2,114 +2,48 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ SYSTEM CRITICAL ERROR ⚠️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECR37 V0 5E171</title>
     <style>
-        body { background-color: black; margin: 0; overflow: hidden; font-family: 'Courier New', Courier, monospace; touch-action: none; cursor: none; }
-        #matrix { position: fixed; top: 0; left: 0; z-index: 1; opacity: 0.4; }
-        #timer-container { position: fixed; top: 30px; left: 50%; transform: translateX(-50%); z-index: 9999; color: #ff0000; font-size: 45px; font-weight: bold; text-shadow: 0 0 20px #ff0000; background: rgba(0, 0, 0, 0.8); padding: 10px 25px; border: 3px solid #ff0000; border-radius: 15px; box-shadow: 0 0 25px red; pointer-events: none; }
-        #content { position: relative; z-index: 100; display: flex; justify-content: center; align-items: center; height: 100vh; color: #00ff00; text-shadow: 0 0 10px #00ff00; font-size: 20px; text-align: center; padding: 25px; box-sizing: border-box; pointer-events: none; }
-        .glitch-red { background-color: rgba(255, 0, 0, 0.7) !important; }
-        h1 { line-height: 1.4; letter-spacing: 1px; font-size: 1.2rem; }
+        /* Desain sederhana agar terlihat seperti website siber */
+        body { 
+            background-color: #0d1117; 
+            color: #58a6ff; 
+            font-family: sans-serif; 
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container { 
+            border: 1px solid #30363d; 
+            padding: 20px; 
+            border-radius: 5px;
+            background-color: #161b22; /* Tambahan agar kotak lebih terlihat */
+        } 
+        
+        h1 { 
+            color: #f0f6fc; 
+            margin-top: 0;
+        }
+        
+        p { 
+            color: #8b949e; 
+            font-size: 1.1em; 
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #30363d;
+            margin: 20px 0;
+        }
     </style>
 </head>
-<body onclick="startPrank()">
-
-    <div id="timer-container">10:00</div>
-    <canvas id="matrix"></canvas>
-    <div id="content"><h1 id="teks-ancaman"></h1></div>
-
-    <!-- Audio Link Langsung (Hotlink ke file .mp3 asli) -->
-    <audio id="scarySound" loop><source src="https://www.soundjay.com" type="audio/mpeg"></audio>
-    <audio id="beepSound"><source src="https://www.soundjay.com" type="audio/mpeg"></audio>
-
-    <script>
-        let hasInteracted = false;
-        const pesan = "⚠️ SYSTEM ERROR! PERANGKAT ANDA TELAH TERINFEKSI MALWARE 'SECR37-V0'. JANGAN KELUAR DARI HALAMAN INI! JIKA ANDA MENCOBA KELUAR, SEMUA DATA FOTO & VIDEO AKAN DIHAPUS PERMANEN. SEDANG MENGUNGGAH DATA KE SERVER..."; 
-
-        function startPrank() {
-            if (!hasInteracted) {
-                hasInteracted = true;
-                
-                // FITUR BARU: Fullscreen otomatis saat diklik
-                const doc = document.documentElement;
-                if (doc.requestFullscreen) doc.requestFullscreen();
-                else if (doc.webkitRequestFullscreen) doc.webkitRequestFullscreen();
-
-                document.getElementById("scarySound").play().catch(() => {});
-                if (navigator.vibrate) navigator.vibrate([500, 200, 500, 200, 800]);
-                
-                alert("CRITICAL WARNING: THREAT DETECTED IN YOUR SYSTEM!");
-                mulaiGlitch();
-            }
-        }
-
-        // Efek Glitch Merah yang lebih intens
-        function mulaiGlitch() {
-            setInterval(() => {
-                if (Math.random() > 0.85) {
-                    document.body.classList.add('glitch-red');
-                    setTimeout(() => document.body.classList.remove('glitch-red'), 80);
-                }
-            }, 300);
-        }
-
-        // Timer & Getar per detik
-        let waktu = 600;
-        const beep = document.getElementById("beepSound");
-        setInterval(function () {
-            let menit = Math.floor(waktu / 60);
-            let detik = Math.floor(waktu % 60);
-            document.getElementById('timer-container').innerHTML = (menit < 10 ? '0' : '') + menit + ":" + (detik < 10 ? '0' : '') + detik;
-            if (waktu > 0) {
-                waktu--;
-                if (hasInteracted) {
-                    beep.currentTime = 0;
-                    beep.play().catch(() => {});
-                    if (navigator.vibrate) navigator.vibrate(50);
-                }
-            }
-        }, 1000);
-
-        // Matrix Background logic
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
-        canvas.height = window.innerHeight; canvas.width = window.innerWidth;
-        const letters = "010101SECR37V0";
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
-
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#0f0"; ctx.font = fontSize + "px arial";
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters.charAt(Math.floor(Math.random() * letters.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            }
-        }
-        setInterval(drawMatrix, 35);
-
-        // Efek Mengetik Otomatis
-        let i = 0;
-        function mulaiMengetik() {
-            if (i < pesan.length) {
-                document.getElementById("teks-ancaman").innerHTML += pesan.charAt(i);
-                i++;
-                setTimeout(mulaiMengetik, 50);
-            }
-        }
-        window.onload = mulaiMengetik;
-        
-        // FITUR BARU: Mencegah tombol Back/Kembali
-        history.pushState(null, null, location.href);
-        window.onpopstate = function () {
-            history.go(1);
-        };
-    </script>
+<body>
+    <div class="container">
+        <h1>SECR37 V0 5E171</h1>
+        <hr>
+        <!-- Tulisan asli Anda saya masukkan di bawah ini -->
+        <p>Selamat datang di website kami. Di sini Anda dapat belajar mengenai keamanan siber dan teknologi terbaru.</p>
+    </div>
 </body>
-    </html>
-    
+</html>
